@@ -10,5 +10,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @EqualsAndHashCode(callSuper = true)
 @Document(indexName = "person")
 public class ElasticPerson extends BaseElasticEntity {
+	private static final long serialVersionUID = 5507393131388079567L;
 	private String name;
 }

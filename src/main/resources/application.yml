@@ -5,18 +5,14 @@ logging:
         data: debug
         web: debug
     io.github.cepr0: debug
-
 spring:
   elasticsearch:
     rest:
-      uris: http://localhost:9200
-
+      uris: https://localhost:9200
+      username: elastic
+      password: 4BCpzhBlff0KMQajdsxG
   data:
-    elasticsearch:
-      cluster-name: docker-cluster
-      cluster-nodes: localhost:9300
-
     mongodb:
-      database: demo
+      uri: mongodb://mongoadmin:secret@localhost:27017/demo
 #      uri: mongodb://localhost:27017,localhost:27018,localhost:27019/?replicaSet=rs0
 

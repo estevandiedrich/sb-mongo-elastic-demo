@@ -1,30 +1,39 @@
 package io.github.cepr0.demo.api;
 
-import io.github.cepr0.crud.api.AbstractCrudController;
-import io.github.cepr0.crud.api.OnCreate;
-import io.github.cepr0.crud.api.OnUpdate;
-import io.github.cepr0.demo.dto.CarRequest;
-import io.github.cepr0.demo.dto.CarResponse;
-import io.github.cepr0.demo.model.Car;
-import io.github.cepr0.demo.service.CarService;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import io.github.cepr0.crud.api.OnUpdate;
+import io.github.cepr0.demo.dto.CarResponse;
+import io.github.cepr0.demo.model.Car;
+import io.github.cepr0.demo.model.elastic.ElasticCar;
+import io.github.cepr0.demo.repo.elastic.CarElasticRepo;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("cars")
-public class CarController extends AbstractCrudController<Car, String, CarRequest, CarResponse> {
+public class CarController /*extends AbstractCrudController<Car, String, CarRequest, CarResponse>*/ {
 
-	public CarController(final CarService service) {
-		super(service);
-	}
+	@Autowired
+	CarElasticRepo carElasticRepo;
+//	public CarController(final CarService service) {
+//		super(service);
+//	}
 
 	@PostMapping
-	@Override
-	public ResponseEntity<CarResponse> create(@Validated(OnCreate.class) @RequestBody final CarRequest request) {
-		return super.create(request);
+	public Mono<ElasticCar> create(@RequestBody ElasticCar request) {
+		return carElasticRepo.save(request);
 	}
 
 	@PatchMapping("/{id}")

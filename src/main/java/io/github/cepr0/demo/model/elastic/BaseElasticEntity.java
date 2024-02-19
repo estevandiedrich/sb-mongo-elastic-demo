@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Setter
 public abstract class BaseElasticEntity implements Serializable {
 
+	private static final long serialVersionUID = 3486346548377930861L;
+
 	@Id
 	private String id;
 
